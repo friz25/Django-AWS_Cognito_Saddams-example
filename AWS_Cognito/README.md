@@ -1,3 +1,6 @@
+## To start the project
+use `python manage.py runserver` in CMD (in this directory)
+
 we create `.env` :"
 ```
 REDIRECT_URI = 'http://localhost:8000/'
