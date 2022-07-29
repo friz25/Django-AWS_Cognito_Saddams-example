@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS_COGNITO</title>
+</head>
+<body>
+    <h1>AWS_COGNITO</h1>
+    <ul class="border-0">
+        <li><a href="#about">About</a></li>
+        <li class="ms-3"><a href="#work">Projects</a></li>
+        <li class="ms-3"><a href="mailto:frizmob@gmail.com" id="emailMe">Contact</a></li>
+        {% if status == 0 %}
+        <li class="ms-4"><a class="border-bottom pb-2 px-0" href="https://XXXXXXXX.auth.eu-central-1.amazoncognito.com/login?response_type=code&client_id=7bjajxxxxxyyyyynt99v3rrek8&redirect_uri=http://localhost:8000
+        ">
+            Sign in/up</a></li>
+        {% elif status == 1%}
+        <li class="ms-4"><a class="pb-2 px-0" href="https://XXXXXXXX.auth.eu-central-1.amazoncognito.com/logout?client_id=7bjajxxxxxyyyyynt99v3rrek8&logout_uri=http://localhost:8000/sign-out
+        ">
+            Sign Out</a></li>
+        {% endif %}
+    </ul>
+
+    <h1 class="text-warning mt-5 ms-5 pt-5">Name: {{ name }} status:{{ status }}</h1>
+</body>
+</html>
