@@ -5,10 +5,10 @@ import base64
 import requests
 
 
-def home(request):
+def home(request): # <WSGIRequest: GET '/?code=72XXXXX-ad82-4db4-8c79-a43103fcf414'>
     context = {}
     try:
-        code = request.GET.get('code')
+        code = request.GET.get('code') #72XXXXX-ad82-4db4-8c79-a43103fcf414
         userData = getTokens(code)
         context['name'] = userData['name']
         context['status'] = 1
@@ -29,14 +29,14 @@ def home(request):
 
 
 def getTokens(code):
-    TOKEN_ENDPOINT = config('TOKEN_ENDPOINT')
-    REDIRECT_URI = config('REDIRECT_URI')
-    CLIENT_ID = config('CLIENT_ID')
-    CLIENT_SECRET = config('CLIENT_SECRET')
+    TOKEN_ENDPOINT = config('TOKEN_ENDPOINT') # 'https://deXXXXX.auth.eu-central-1.amazoncognito.com/oauth2/token'
+    REDIRECT_URI = config('REDIRECT_URI') # 'http://localhost:8000/'
+    CLIENT_ID = config('CLIENT_ID') # '7bjaXXXXXX7gbqXXX30vrrek8'
+    CLIENT_SECRET = config('CLIENT_SECRET') # '1sb5bvrXXXXXXXXXXXXXo7giqf54ltnu2htjs9vkaegsg1l3u'
 
-    encodeData = base64.b64encode(bytes(f"{CLIENT_ID}:{CLIENT_SECRET}", "ISO-8859-1")).decode("ascii")
+    encodeData = base64.b64encode(bytes(f"{CLIENT_ID}:{CLIENT_SECRET}", "ISO-8859-1")).decode("ascii") #'N2JqYWpvbWpkN2dicXXXXXXXzB2cnJlazg6MXNiNWJ2cnEzMW8xdjYyaXIzMjZsdnFvN2dpcWY1NGx0bnUyaHRqczl2a2FlZ3NnMWwzdQ=='
 
-    headers = {
+    headers = { #{'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic N2JqYWpvbWpkN2dicXXXXXXXXcnJlazg6MXNiNWJ2cnEzMW8xdjYyaXIzMjZsdnFvN2dpcWY1NGx0bnUyaHRqczl2a2FlZ3NnMWwzdQ=='}
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': f'Basic {encodeData}'
     }
@@ -48,7 +48,7 @@ def getTokens(code):
         'redirect_uri': REDIRECT_URI,
     }
 
-    response = requests.post(TOKEN_ENDPOINT, data=body, headers=headers)
+    response = requests.post(TOKEN_ENDPOINT, data=body, headers=headers) # 400 = BAD (here's there the ERROR is)
 
     id_token = response.json()['id_token']
 
